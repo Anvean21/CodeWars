@@ -11,7 +11,7 @@ namespace CodeWars
     {
         static void Main(string[] args)
         {
-            //changes
+            Console.WriteLine();
             Console.ReadKey();
         }
     }
