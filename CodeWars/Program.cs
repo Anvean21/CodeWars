@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
 
 namespace CodeWars
 {
@@ -11,12 +11,61 @@ namespace CodeWars
     {
         static void Main(string[] args)
         {
-            Console.WriteLine();
+            Kata.DuplicateEncode("recede");
             Console.ReadKey();
         }
     }
     public class Kata
     {
+        //Kata.ArrayDiff(new int[] {1, 2, 2, 2, 3}, new int[] {2}) => new int[] {1, 3}
+        public static int[] ArrayDiff(int[] a, int[] b)
+        {
+            return a.Where(n => !b.Contains(n)).ToArray();
+        }
+
+        //"recede"   =>  "()()()"
+        public static string DuplicateEncode(string word)
+        {
+
+            List<string> str = new List<string>();
+            word = word.ToLower();
+            char[] arr = word.ToCharArray();
+            int count = 0;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                for (int j = 0; j < arr.Length; j++)
+                {
+                    if (arr[i] == arr[j])
+                    {
+                        count++;
+                    }
+                }
+                if (count > 1)
+                {
+                    str.Add(")");
+                    count = 0;
+                }
+                else
+                {
+                    str.Add("(");
+                    count = 0;
+                }
+            }
+
+            return string.Join("", str);
+        }
+
+        //Kata.DeleteNth (new int[] {1,1,3,3,7,2,2,2,2}, 3) // return [1, 1, 3, 3, 7, 2, 2, 2]
+        public static int[] DeleteNth(int[] arr, int x)
+        {
+            var result = new List<int>();
+            foreach (var item in arr)
+            {
+                if (result.Count(i => i == item) < x)
+                    result.Add(item);
+            }
+            return result.ToArray();
+        }
         //never mind
         public static string GetDrinkByProfession(string p)
         {
@@ -502,13 +551,13 @@ namespace CodeWars
         //aaabb -> a 3, b 2
         public static Dictionary<char, int> Count(string str)
         {
-            return  str.GroupBy(c => c).ToDictionary(g => g.Key, g => g.Count());
+            return str.GroupBy(c => c).ToDictionary(g => g.Key, g => g.Count());
         }
 
         //REC. 132189  -->  1 + 3 + 2 + 1 + 8 + 9 = 24  -->  2 + 4 = 6
         public static int DigitalRoot(long n)
         {
-           
+
             string str = n.ToString();
             int sum = 0;
             for (int i = 0; i < str.Length; i++)
@@ -517,7 +566,7 @@ namespace CodeWars
             }
             if (sum > 9)
             {
-               return DigitalRoot(sum);
+                return DigitalRoot(sum);
             }
             return sum;
 
@@ -540,6 +589,162 @@ namespace CodeWars
             if (string.IsNullOrEmpty(words)) return words;
             return string.Join(" ", words.Split(' ').OrderBy(s => s.ToList().Find(c => char.IsDigit(c))));
         }
+
+        public static string BooleanToString(bool b)
+        {
+            return b == true ? "True" : "False";
+        }
+
+        // (2,100,110) -> {101, 103}
+        public static long[] Step(int g, long m, long n)
+        {
+            for (long i = m; i <= n; i++)
+            {
+                if (isPrime(i))
+                {
+                    if (isPrime(i + g) && (i + g) <= n)
+                    {
+                        return new long[2] { i, i + g };
+                    }
+                }
+            }
+            return null;
+        }
+
+        //Простое число
+        public static bool isPrime(long number)
+        {
+            if (number == 1) return false;
+            if (number == 2) return true;
+
+            if (number % 2 == 0) return false; //Even number     
+
+            for (int i = 3; i <= Math.Ceiling(Math.Sqrt(number)); i += 2)
+            {
+                if (number % i == 0) return false;
+            }
+            return true;
+        }
+
+        public static int[] GetEvenNumbers(int[] numbers)
+        {
+            var list = numbers.Where(x => x % 2 == 0);
+            return list.ToArray();
+        }
+
+        //Find char position
+        public static string Position(char alphabet)
+        {
+            string str = "abcdefghijklmnopqrstuvwxyz";
+            int i = str.IndexOf(alphabet);
+            i += 1;
+            return "Position of alphabet:" + i.ToString();
+        }
+
+        //1,3,4,6,7 -> 1,2,3,4,5,6,7;
+        public static List<int> PipeFix(List<int> numbers)
+        {
+            List<int> list = new List<int>();
+            for (int i = numbers.Min(); i < numbers.Max(); i++)
+            {
+                list.Add(i);
+            }
+            return list;
+        }
+
+        // - 
+        public static string PeopleWithAgeDrink(int old)
+        {
+            if (old < 14)
+            {
+                return "drink toddy";
+            }
+            else if (old < 18)
+            {
+                return "drink coke";
+            }
+            else if (old < 21)
+            {
+                return "drink beer";
+            }
+            else
+            {
+                return "drink whisky";
+            }
+        }
+
+        //Like diamonds but three
+        public static string ChristmasTree(int height)
+        {
+            if (height < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(height));
+            }
+
+            if (height == 0)
+            {
+                return string.Empty;
+            }
+
+            var builder = new StringBuilder(2 * height * height);
+
+            for (int spaces = height - 1, asterisks = 1; spaces >= 0; --spaces, asterisks += 2)
+            {
+                builder
+                    .Append(' ', spaces)
+                    .Append('*', asterisks)
+                    .Append(' ', spaces)
+                    .Append('\n');
+            }
+
+            return builder.ToString(0, builder.Length - 1);
+        }
+
+        //-
+        public static string Task(string w, int n, int c)
+        {
+            // James,John,Robert,Michael and William
+            string name = "";
+            if (w == "Monday")
+                name = "James";
+            if (w == "Tuesday")
+                name = "John";
+            if (w == "Wednesday")
+                name = "Robert";
+            if (w == "Thursday")
+                name = "Michael";
+            if (w == "Friday")
+                name = "William";
+            return $"It is {w} today, {name}, you have to work, you must spray {n} trees and you need {n * c} dollars to buy liquid";
+
+
+        }
+
+        //{1,5,6,8,} 2 -> {8,6}
+        public static List<int> Largest(int n, List<int> xs)
+        {
+            List<int> minList = new List<int>();
+            for (int i = 0; i < n; i++)
+            {
+                minList.Add(xs.Max());
+                xs.Remove(xs.Max());
+            }
+            return minList;
+        }
+
+        // 1234 -> 5
+        public static int CountBits(int n)
+        {
+            return Convert.ToString(n, 2).Count(x => x == '1');
+        }
+
+        //(new int[] {1, 2, 0, 1, 0, 1, 0, 3, 0, 1}) => new int[] {1, 2, 1, 1, 3, 1, 0, 0, 0, 0}
+        public static int[] MoveZeroes(int[] arr)
+        {
+            return arr.OrderBy(x => x == 0).ToArray();
+
+        }
+
     }
     public class Fighter
     {
