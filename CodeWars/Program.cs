@@ -3,7 +3,8 @@
     using System.Globalization;
     using System.Linq;
     using System.Text;
-    using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace CodeWars
 {
@@ -11,12 +12,74 @@ namespace CodeWars
     {
         static void Main(string[] args)
         {
-            Kata.DuplicateEncode("recede");
             Console.ReadKey();
         }
     }
     public class Kata
     {
+        //The -> "20 8 5"
+        public static string AlphabetPosition(string text)
+        {
+            return string.Join(" ", text.ToLower()
+                                                  .Where(c => char.IsLetter(c))
+                                                  .Select(c => "abcdefghijklmnopqrstuvwxyz".IndexOf(c) + 1)
+                                                  .ToArray());
+        }
+        public static string Abbreviate(string input)
+        {
+            string current = "";
+            string result = "";
+            input += " ";
+            foreach (var c in input)
+            {
+                if (Char.IsLetter(c))
+                    current += c;
+                else
+                {
+                    result += current.Length > 3 ? current.First() + (current.Length - 2).ToString() + current.Last() + c : current + c;
+                    current = "";
+                }
+            }
+            return result.Trim();
+        }
+
+        //maxMultiple (2,7) ==> return (6)
+        public static int MaxMultiply(int divisor, int bound)
+        {
+            return bound / divisor * divisor;
+        }
+
+        //str = "This is an example string"; Return value as a string: "Thisi"+"\n"+"sanex"+"\n"+"ample"+"\n"+"strin"+"\n"+"g"
+        public static string StringBreakers(int n, string str)
+        {
+
+            var builder = new StringBuilder();
+
+            var i = n;
+
+            foreach (var c in str)
+            {
+                if (c != ' ')
+                {
+                    if (i == 0)
+                    {
+                        builder.Append('\n');
+                        i = n;
+                    }
+
+                    builder.Append(c);
+                    --i;
+                }
+            }
+
+            return builder.ToString();
+        }
+        //Kata.CreatePhoneNumber(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 0}) // => returns "(123) 456-7890"
+        public static string CreatePhoneNumber(int[] numbers)
+        {
+            return long.Parse(string.Concat(numbers)).ToString("(000) 000-0000");
+        }
+
         //Kata.ArrayDiff(new int[] {1, 2, 2, 2, 3}, new int[] {2}) => new int[] {1, 3}
         public static int[] ArrayDiff(int[] a, int[] b)
         {
