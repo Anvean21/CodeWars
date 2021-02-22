@@ -12,6 +12,7 @@ namespace CodeWars
     {
         static void Main(string[] args)
         {
+            Console.WriteLine(Kata.Switcheroo("abc"));
             Console.ReadKey();
         }
     }
@@ -41,6 +42,11 @@ namespace CodeWars
                 }
             }
             return result.Trim();
+        }
+
+        public static string Switcheroo(string x)
+        {
+            return x.Replace("a", "d").Replace("b", "a").Replace("d", "b");
         }
 
         //maxMultiple (2,7) ==> return (6)
