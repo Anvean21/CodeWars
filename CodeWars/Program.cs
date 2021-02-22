@@ -44,6 +44,7 @@ namespace CodeWars
             return result.Trim();
         }
 
+        //abc -> bac
         public static string Switcheroo(string x)
         {
             return x.Replace("a", "d").Replace("b", "a").Replace("d", "b");
