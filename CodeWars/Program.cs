@@ -44,6 +44,16 @@ namespace CodeWars
             return result.Trim();
         }
 
+        //My best practices, and cleverest solution
+        public static string Greet()
+        {
+            string[] array = new string[]
+            {
+      $"{(char)104}{(char)101}{(char)108}{(char)108}{(char)111}",
+      $"{(char)119}{(char)111}{(char)114}{(char)108}{(char)100}{(char)33}"
+            };
+            return string.Join(" ", array);
+        }
         //abc -> bac
         public static string Switcheroo(string x)
         {
