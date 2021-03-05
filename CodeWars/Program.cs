@@ -1,8 +1,8 @@
-﻿    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -12,7 +12,7 @@ namespace CodeWars
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(Kata.Switcheroo("abc"));
+            Console.WriteLine(Kata.OneOnRightZeroCounter(new[] { 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1 }));
             Console.ReadKey();
         }
     }
@@ -25,6 +25,20 @@ namespace CodeWars
                                                   .Where(c => char.IsLetter(c))
                                                   .Select(c => "abcdefghijklmnopqrstuvwxyz".IndexOf(c) + 1)
                                                   .ToArray());
+        }
+
+        //new [] { 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1 } -> 35
+        public static int OneOnRightZeroCounter(int[] array)
+        {
+            var sum = 0;
+            var mult = 0;
+            for (var i = 0; i < array.Length; i++)
+            {
+                if (array[i] == 0) mult++;
+                else sum = sum + mult;
+            }
+
+            return sum;
         }
         public static string Abbreviate(string input)
         {
