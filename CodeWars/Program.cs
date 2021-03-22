@@ -18,6 +18,40 @@ namespace CodeWars
     }
     public class Kata
     {
+        public static bool lovefunc(int flower1, int flower2)
+        {
+            return flower1 % 2 != flower2 % 2;
+        }
+        public static int[] Between(int a, int b)
+        {
+            var result = new List<int>();
+            for (var i = a; i <= b; i++)
+            {
+                result.Add(i);
+            }
+            return result.ToArray();
+        }
+        public static int NthEven(int n)
+        {
+            return 2 * (n - 1);
+        }
+        public static int[,] MultiplicationTable(int size)
+        {
+            int[,] table = new int[size, size];
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    table[i, j] = (i + 1) * (j + 1);
+                }
+            }
+            return table;
+        }
+        public static string Disemvowel(string str)
+        {
+            return Regex.Replace(str, "[aeiou]", "", RegexOptions.IgnoreCase);
+        }
+
         //The -> "20 8 5"
         public static string AlphabetPosition(string text)
         {
@@ -30,14 +64,16 @@ namespace CodeWars
         //new [] { 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1 } -> 35
         public static int OneOnRightZeroCounter(int[] array)
         {
+            //каждую единицу нужно умножить на количество нулей слева и просуммировать
+            var numberOfZeros = 0;
             var sum = 0;
-            var mult = 0;
-            for (var i = 0; i < array.Length; i++)
+            foreach (var number in array)
             {
-                if (array[i] == 0) mult++;
-                else sum = sum + mult;
+                if (number == 0)
+                    numberOfZeros++;
+                else
+                    sum += numberOfZeros;
             }
-
             return sum;
         }
         public static string Abbreviate(string input)
